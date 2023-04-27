@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: mosk;
+  src: url(/fonts/Mosk_800.ttf);
+}
+@font-face {
+  font-family: mosk_light;
+  src: url(/fonts/Mosk_600.ttf);
+}
+
+body {
+  font-family: mosk;
+  font-weight: 900;
+}
+.typewriterAnimation {
+  overflow-y: visible;
+  overflow-x: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typing 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards .5s;
+}
+
+@keyframes typing {
+  0%, 100% { width: 0% }
+  80% { width: 100% }
+}
+
+.navigation {
+  overflow-y: visible;
+  overflow-x: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  animation: appear .5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+
+.navigation:nth-of-type(1) {
+  animation-delay: 2.6s;
+}
+.navigation:nth-of-type(2) {
+  animation-delay: 2.7s;
+}
+.navigation:nth-of-type(3) {
+  animation-delay: 2.8s;
+}
+.navigation:nth-of-type(4) {
+  animation-delay: 2.9s;
+}
+.navigation:nth-of-type(5) {
+  animation-delay: 3.0s;
+}
+.navigation:nth-of-type(6) {
+  animation-delay: 3.2s;
+}
+
+.light-font {
+  font-family: mosk_light;
+  font-weight: 600;
+}
+.bold-font {
+  font-family: mosk;
+  font-weight: 900;
+}
+
+@keyframes appear {
+  0% { opacity: 0 }
+  100% { opacity: 100% }
+}
+
+@keyframes meander {
+  0% { transform: translateX(0) }
+  100% { transform: translateX(100%) }
+}

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>theodore chan</title>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      class="bg-white fixed left-0 top-0 pointer-events-none -z-20"
+    ></canvas>
+    <img
+      src="./background.png"
+      alt="background"
+      class="-z-10 fixed left-0 top-0 opacity-70 pointer-events-none h-full w-full"
+    />
+    <nav class="text-center text-4xl font-bold z-0">
+      <a
+        href="#projects"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-pointer left-[13.5%] top-[20.1%] transition-all"
+        >projects</a
+      >
+      <a
+        href="#technologies"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-pointer left-[26.8%] top-[52.2%] transition-all"
+        >technologies</a
+      >
+      <a
+        href="#about-me"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-pointer left-[55.2%] top-[39.7%] transition-all"
+        >about me</a
+      >
+      <a
+        href="#contact"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-pointer left-[78.5%] top-[12.3%] transition-all"
+        >contact</a
+      >
+      <a
+        href="#blog"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-pointer left-[75.7%] top-[70.5%] transition-all"
+        >blog</a
+      >
+    </nav>
+
+    <main
+      class="z-10 snap-y snap-mandatory h-screen overflow-hidden scroll-smooth"
+      id="parent"
+    >
+      <!-- TOP -->
+      <section
+        class="grid snap-start place-content-center h-screen text-center text-3xl font-bold"
+        id="top"
+      >
+        <h1
+          class="text-6xl font-bold leading-relaxed typewriterAnimation mx-auto"
+        >
+          hey!
+        </h1>
+      </section>
+      <!-- PROJECTS -->
+      <section
+        class="h-screen snap-start px-24 pt-64 pr-[25%] flex gap-16"
+        id="projects"
+      >
+        <div
+          class="h-full w-20% flex flex-col gap-[8%] justify-start text-3xl font-bold text-left"
+        >
+          <button class="projects-button transition-all" style="scale: 1.2">
+            wya
+          </button>
+          <button class="projects-button transition-all">annotater</button>
+          <button class="projects-button transition-all">crypto ccicks</button>
+          <button class="projects-button transition-all">evolution</button>
+          <button class="projects-button transition-all">traffic</button>
+        </div>
+        <div class="flex-1">
+          <div
+            class="bg-white bg-opacity-30 mx-auto backdrop-blur-sm w-[45vw] aspect-video p-4 relative rounded-lg"
+          >
+            <div
+              class="bg-gray-300 h-full rounded-lg bg-cover"
+              id="project-image"
+              style="background-image: url(/project_images/wya.png)"
+            ></div>
+            <div class="absolute bottom-6 left-6" id="project-name">
+              WYA app
+            </div>
+            <div class="absolute bottom-6 right-6 flex gap-6">
+              <a
+                href="https://wyaapp.com/"
+                target="_blank"
+                class="p-2 px-5 bg-white rounded-full text-black transition-all hover:bg-black hover:text-white"
+                id="project-live"
+                >live</a
+              >
+              <a
+                href="https://github.com/TheoC26/WYAWebsite"
+                target="_blank"
+                class="p-2 px-5 rounded-full bg-white text-black transition-all hover:bg-black hover:text-white"
+                id="project-github"
+                >github</a
+              >
+            </div>
+          </div>
+          <div
+            class="mt-3 mx-auto w-[80%] text-2xl font-semibold"
+            id="project-description"
+          >
+            The website for WYA app
+          </div>
+        </div>
+      </section>
+      <!-- TECHNOLOGIES -->
+      <section class="h-screen snap-start px-24 pt-44" id="technologies">
+        <h2 id="stuff" class="text-3xl">ui/ux</h2>
+        <div class="flex gap-6 [&>*]:shadow-sm">
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-around items-center"
+          >
+            <img src="/logos/figma.png" alt="figma logo" class="w-14" />
+            <h3 class="2xl mx-auto">figma</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center"
+          >
+            <img
+              src="/logos/ai.png"
+              alt="adobe illustrator logo"
+              class="w-[75px]"
+            />
+            <h3 class="2xl mx-auto mt-auto">illustrator</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/rive.png" alt="rive logo" class="w-24" />
+            <h3 class="2xl mx-auto">rive</h3>
+          </div>
+        </div>
+        <h2 class="text-3xl mt-3">frontend</h2>
+        <div class="flex gap-6 [&>*]:shadow-sm">
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-1 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/html.png" alt="html logo" class="w-24" />
+            <h3 class="2xl mx-auto">html</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/css.png" alt="rive logo" class="w-20" />
+            <h3 class="2xl mx-auto">css</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-2 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/react.png" alt="react logo" class="w-24" />
+            <h3 class="2xl mx-auto">react</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-4 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/next-js.svg" alt="next js logo" class="w-20" />
+            <h3 class="2xl mx-auto">next</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-1 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/tailwind.png" alt="tailwind logo" class="w-24" />
+            <h3 class="2xl mx-auto">tailwind</h3>
+          </div>
+        </div>
+        <h2 class="text-3xl mt-3">languages</h2>
+        <div class="flex gap-6 [&>*]:shadow-sm">
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/js.png" alt="javascript logo" class="w-20" />
+            <h3 class="2xl mx-auto">javascript</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/python.png" alt="python logo" class="w-20" />
+            <h3 class="2xl mx-auto">python</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/java.png" alt="java logo" class="w-16" />
+            <h3 class="2xl mx-auto">java</h3>
+          </div>
+          <div
+            class="tech-card bg-white w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center"
+          >
+            <img src="/logos/swift.png" alt="swift logo" class="w-20" />
+            <h3 class="2xl mx-auto">swift</h3>
+          </div>
+        </div>
+      </section>
+      <!-- ABOUT ME -->
+      <section class="h-screen snap-start px-24 pt-52 pr-[33%] text-3xl light-font font-extrabold" id="about-me">
+        <p>
+          Hey there, I'm <span class="aboutme-hover bold-font cursor-pointer">Theodore Chan</span> - a UI/UX and front-end
+          design fanatic based in the <span class="aboutme-hover bold-font cursor-pointer">Big Apple</span>. When I'm not
+          coding up a storm, you can find me shredding
+          <span class="aboutme-hover bold-font cursor-pointer">the slopes</span> on my skis or crushing it on the
+          <span class="aboutme-hover bold-font cursor-pointer">tennis court</span>. I've also been known to dabble on the drums
+          and guitar - though I'm still working on my
+          <span class="aboutme-hover bold-font cursor-pointer">rockstar status</span>.
+        </p>
+        <br>
+        <p>
+          As a designer, I love finding creative solutions to real-world
+          problems. Whether it's crafting a seamless user experience or
+          perfecting the pixel-perfect details of a design, I thrive on the
+          challenge of making things look and work beautifully. And when I'm not
+          behind the screen, you can usually find me exploring the great
+          outdoors, soaking up inspiration from the world around me.
+        </p>
+      </section>
+      <!-- CONTACT -->
+      <section class="h-screen snap-start pt-52 pr-96" id="contact">
+        <div class="bg-white bg-opacity-10 p-16 pt-8 pl-32 rounded-r-2xl backdrop-blur-sm">
+          <form class="flex flex-col" data-netlify=true name="contact">
+            <label for="emailInput" class="text-3xl mb-1">email</label>
+            <input name="email" type="email" id="emailInput" class="rounded-2xl py-2 px-6 text-2xl" required />
+            <label for="messageInput" class="text-3xl mt-4 mb-1">message</label>
+            <textarea name="message" class="resize-none h-full flex-1 box-border text-2xl table-row rounded-2xl p-6" rows="6" cols="6" id="messageInput" required></textarea>
+            <button class="bg-black w-auto mx-auto px-5 py-2 text-white text-2xl mt-4 rounded-lg transition-all hover:scale-95">send</button>
+          </form>
+        </div>
+      </section>
+      <!-- BLOG -->
+      <section class="h-screen snap-start" id="blog">
+        <div
+          class="grid place-content-center h-screen text-center text-3xl font-bold"
+        >
+          <h1 class="text-6xl font-bold leading-relaxed mx-auto">blog</h1>
+        </div>
+      </section>
+    </main>
+
+    <script src="./scripts/canvas.js"></script>
+    <script src="./scripts/navigation.js"></script>
+    <script src="./scripts/techCards.js"></script>
+    <script src="./scripts/projects.js"></script>
+    <script src="./scripts/form.js"></script>
+  </body>
+</html>
