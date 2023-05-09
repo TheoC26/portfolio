@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../blogStyle.css" />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tomorrow-night-blue.min.css"
+    />
+    <title>tc | Particle Effect</title>
+  </head>
+  <body>
+    <header
+      class="w-full px-12 py-3 top-0 bg-white sticky flex justify-between items-center border-b-2"
+    >
+      <div class="flex gap-12">
+        <a href="../index.html" class="text-6xl self-center">tc</a>
+        <a href="../index.html#about-me" class="ml-10 text-2xl self-center"
+          >about me</a
+        >
+        <a href="../index.html#contact" class="text-2xl self-center">contact</a>
+      </div>
+      <a href="./index.html" class="text-2xl">all blogs</a>
+    </header>
+    <div class="my-32 mx-auto max-w-2xl px-12" style="padding-inline: 1rem;">
+      <h1 class="text-5xl">
+        How to Create a Morphing Text Particle Effect with JavaScript and HTML5
+        Canvas
+      </h1>
+      <h3 class="text-lg light-font text-gray-600 my-2">
+        by <span class="bold-font text-black">Theodore Chan</span> • June 7th,
+        2023
+      </h3>
+    </div>
+    <main class="mx-auto max-w-4xl" style="padding-inline: .5rem;">
+      <p>
+        Are you looking for a way to spice up your website's design? Perhaps you
+        want to add an interactive and visually stunning effect to your landing
+        page. If so, you might be interested in creating a morphing text
+        particle effect using JavaScript and HTML5 Canvas. In this tutorial, we
+        will guide you through the process of creating such an effect from
+        scratch, and we will provide you with the complete code at the end.
+      </p>
+      <p>
+        Before we start, let's briefly go over what the morphing text particle
+        effect is. The effect consists of a text element that morphs into a
+        swarm of particles that disperse across the canvas, forming a new text
+        element. This effect is achieved by converting the text into particles
+        and then animating the particles to form the new text.
+      </p>
+      <p>
+        Without further ado, let's dive into the steps to create this effect:
+      </p>
+      <h2 class="text-3xl">1. Set up the HTML and CSS</h2>
+      <p>
+        First, we need to create a canvas element in our HTML code. We will also
+        add some basic styling to the canvas to ensure it takes up the full
+        screen.
+      </p>
+      <pre>
+        <code class="language-xml font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset=&quot;utf-8&quot; /&gt;
+      &lt;title&gt;Morphing Text Particle Effect&lt;/title&gt;
+      &lt;style&gt;
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        canvas {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+        </code>
+    </pre>
+      <h2>2. Access and set up the Canvas</h2>
+      <p>
+        Next, we will access the canvas element in our JavaScript code and set
+        up the canvas. We will also create a resize event listener to ensure the
+        canvas is always the correct size.
+      </p>
+      <pre>
+        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d", {
+    willReadFrequently: true,
+  });
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // effect.canvasWidth = canvas.width;
+    // effect.canvasHeight = canvas.height;
+    // effect.renderText();
+  });
+        </code>
+        </pre>
+      <h2>3. Create the Particle Class</h2>
+      <p>
+        We will create a Particle class to represent each particle in the
+        effect. Each particle will have a color, radius, friction, and ease
+        value. Additionally, each particle will have an update() function that
+        continually updates its position based on the mouse's position and its
+        own properties.
+      </p>
+      <pre>
+        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+class Particle {
+  constructor(
+    effect,
+    x,
+    y,
+    radius,
+    color,
+    frictionMultiplier,
+    easeMultiplier
+  ) {
+    this.effect = effect;
+    this.x =
+      (Math.random() * effect.canvasWidth) / 2 + effect.canvasWidth / 4;
+    this.y = effect.canvasHeight / 2;
+    this.originX = x;
+    this.originY = y;
+    this.radius = radius;
+    this.color = color;
+    this.dx = 0;
+    this.dy = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.force = 0;
+    this.angle = 0;
+    this.distance = 0;
+    this.friction = Math.random() * frictionMultiplier;
+    this.ease = Math.random() * easeMultiplier + 0.07;
+  }
+  draw() {
+    this.effect.context.fillStyle = this.color;
+    this.effect.context.beginPath();
+    this.effect.context.arc(
+      this.x,
+      this.y,
+      this.radius,
+      0,
+      2 * Math.PI,
+      false
+    );
+    this.effect.context.fill();
+  }
+  update() {
+    this.dx = this.effect.mouse.x - this.x;
+    this.dy = this.effect.mouse.y - this.y;
+    this.distance = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+    this.force = -this.effect.mouse.radius / this.distance;
+    if (this.distance &lt; this.effect.mouse.radius) {
+      this.angle = Math.atan2(this.dy, this.dx);
+      this.vx = this.force * Math.cos(this.angle);
+      this.vy = this.force * Math.sin(this.angle);
+    }
+
+    this.x +=
+      (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
+    this.y +=
+      (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
+  }
+}
+        </code>
+    </pre>
+      <p>
+        This class references the "effect" which we have not implimented yet. We
+        will make that next.
+      </p>
+      <h2>4. Implementing the Morphing Text Particle Effect</h2>
+      <p>
+        We now have everything we need to create the morphing text particle
+        effect. We will start by rendering the text, converting it to particles,
+        and storing those particles in an array.
+      </p>
+      <pre>
+        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+  class Effect {
+    constructor(context, canvasWidth, canvasHeight) {
+      this.context = context;
+      this.canvasWidth = canvasWidth;
+      this.canvasHeight = canvasHeight;
+      this.particles = [];
+      this.particleGap = 4;
+      this.mouse = {
+        radius: 20000,
+        x: undefined,
+        y: undefined,
+      };
+      window.addEventListener("mousemove", (event) => {
+        this.mouse.x = event.x;
+        this.mouse.y = event.y;
+      });
+    }
+
+    renderText() {
+      this.context.font = "600 96px Mosk";
+      this.context.fillText(
+        "hello world",
+        this.canvasWidth / 2 - 200,
+        this.canvasHeight / 2
+      );
+      this.convertToParticles();
+    }
+
+    convertToParticles() {
+      this.particles = [];
+      const pixles = this.context.getImageData(
+        0,
+        0,
+        this.canvasWidth,
+        this.canvasHeight
+      );
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
+      for (let y = 0; y &lt; this.canvasHeight; y += this.particleGap) {
+        for (let x = 0; x &lt; this.canvasWidth; x += this.particleGap) {
+          const index = (x + y * pixles.width) * 4;
+          const alpha = pixles.data[index + 3];
+          if (alpha > 0) {
+            const red = pixles.data[index + 0];
+            const green = pixles.data[index + 1];
+            const blue = pixles.data[index + 2];
+            const radius = Math.random() * 2 + 1.2;
+            const color = `rgb(${red}, ${green}, ${blue})`;
+            this.particles.push(
+              new Particle(this, x, y, radius, color, 0.007, 0.5)
+            );
+          }
+        }
+      }
+    }
+
+    morphText(text, fontSize, x, y) {
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
+      this.context.font = `${fontSize}px Mosk 900`;
+      this.context.fillStyle = "rgb(0, 0, 0)";
+      this.context.fillText(text, x, y);
+      const pixles = this.context.getImageData(
+        0,
+        0,
+        this.canvasWidth,
+        this.canvasHeight
+      );
+      let particlesUsed = 0;
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
+      for (let y = 0; y &lt; this.canvasHeight; y += this.particleGap) {
+        for (let x = 0; x &lt; this.canvasWidth; x += this.particleGap) {
+          const index = (x + y * pixles.width) * 4;
+          const alpha = pixles.data[index + 3];
+          if (alpha > 0) {
+            particlesUsed++;
+            const red = pixles.data[index + 0];
+            const green = pixles.data[index + 1];
+            const blue = pixles.data[index + 2];
+            const radius = Math.random() * 2 + 1.2;
+            const color = `rgb(${red}, ${green}, ${blue})`;
+            if (this.particles[particlesUsed] != undefined) {
+              this.particles[particlesUsed].color = color;
+              this.particles[particlesUsed].originX = x;
+              this.particles[particlesUsed].originY = y;
+            } else {
+              this.particles.push(
+                new Particle(this, x, y, radius, color, 0.007, 0.5)
+              );
+            }
+          }
+        }
+      }
+
+      for (let i = particlesUsed; i &lt; this.particles.length; i++) {
+        this.particles[i].color = "rgba(0, 0, 0, 0)";
+      }
+    }
+
+    render() {
+      this.particles.forEach((particle) => {
+        particle.update();
+        particle.draw();
+      });
+    }
+  }
+        </code>
+    </pre>
+      <h2>5. Creating the Effect</h2>
+      <p>
+        Now that we have the effect class, we can create an instance of it and
+        call the renderText method to render the text and convert it to
+        particles.
+      </p>
+      <pre>
+      <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+  const effect = new Effect(ctx, canvas.width, canvas.height);
+  effect.renderText();
+      </code>
+    </pre>
+      <p>
+        Next, we will create an animation loop that will update and draw each
+        particle in the array. We use requestAnimationFrame() to create a loop
+        that will continuously update and draw the particles.
+      </p>
+      <pre>
+        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    effect.render();
+    requestAnimationFrame(animate);
+  }
+  animate();
+        </code>
+    </pre>
+    <p>Finally, we can create a setTimout function that morphs the text after 2 seconds to try out the effect.</p>
+    <pre>
+      <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+  setTimeout(() => {
+    effect.morphText(
+      "morphed text",
+      100,
+      window.innerWidth / 2 - 200,
+      window.innerHeight / 2
+    );
+  }, 2000);
+      </code>
+    </pre>
+    <h2>And Thats It!</h2>
+    <p>You should now have a morphing text particle effect on your canvas. Here's the full code:</p>
+    <pre>
+      <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d", {
+    willReadFrequently: true,
+  });
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    effect.canvasWidth = canvas.width;
+    effect.canvasHeight = canvas.height;
+    effect.renderText();
+  });
+
+  class Particle {
+    constructor(effect, x, y, radius, color, frictionMultiplier, easeMultiplier) {
+      this.effect = effect;
+      this.x = (Math.random() * effect.canvasWidth) / 2 + effect.canvasWidth / 4;
+      this.y = effect.canvasHeight / 2;
+      this.originX = x;
+      this.originY = y;
+      this.radius = radius;
+      this.color = color;
+      this.dx = 0;
+      this.dy = 0;
+      this.vx = 0;
+      this.vy = 0;
+      this.force = 0;
+      this.angle = 0;
+      this.distance = 0;
+      this.friction = Math.random() * frictionMultiplier;
+      this.ease = Math.random() * easeMultiplier + 0.07;
+    }
+    draw() {
+      this.effect.context.fillStyle = this.color;
+      this.effect.context.beginPath();
+      this.effect.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+      this.effect.context.fill();
+    }
+    update() {
+      this.dx = this.effect.mouse.x - this.x;
+      this.dy = this.effect.mouse.y - this.y;
+      this.distance = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+      this.force = -this.effect.mouse.radius / this.distance;
+      if (this.distance &lt; this.effect.mouse.radius) {
+        this.angle = Math.atan2(this.dy, this.dx);
+        this.vx = this.force * Math.cos(this.angle);
+        this.vy = this.force * Math.sin(this.angle);
+      }
+
+      this.x += (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
+      this.y += (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
+    }
+  }
+
+  class Effect {
+    constructor(context, canvasWidth, canvasHeight) {
+      this.context = context;
+      this.canvasWidth = canvasWidth;
+      this.canvasHeight = canvasHeight;
+      this.particles = [];
+      this.particleGap = 4;
+      this.mouse = {
+        radius: 20000,
+        x: undefined,
+        y: undefined,
+      };
+      window.addEventListener("mousemove", (event) => {
+        this.mouse.x = event.x;
+        this.mouse.y = event.y;
+      });
+    }
+
+    renderText() {
+      this.context.font = "600 96px Mosk";
+      this.context.fillText(
+        "hello world",
+        this.canvasWidth / 2 - 200,
+        this.canvasHeight / 2
+      );
+      this.convertToParticles();
+    }
+
+    convertToParticles() {
+      this.particles = [];
+      const pixles = this.context.getImageData(
+        0,
+        0,
+        this.canvasWidth,
+        this.canvasHeight
+      );
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
+      for (let y = 0; y &lt; this.canvasHeight; y += this.particleGap) {
+        for (let x = 0; x &lt; this.canvasWidth; x += this.particleGap) {
+          const index = (x + y * pixles.width) * 4;
+          const alpha = pixles.data[index + 3];
+          if (alpha > 0) {
+            const red = pixles.data[index + 0];
+            const green = pixles.data[index + 1];
+            const blue = pixles.data[index + 2];
+            const radius = Math.random() * 2 + 1.2;
+            const color = `rgb(${red}, ${green}, ${blue})`;
+            this.particles.push(
+              new Particle(this, x, y, radius, color, 0.007, 0.5)
+            );
+          }
+        }
+      }
+    }
+
+    morphText(text, fontSize, x, y) {
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
+      this.context.font = `${fontSize}px Mosk 900`;
+      this.context.fillStyle = "rgb(0, 0, 0)";
+      this.context.fillText(text, x, y);
+      const pixles = this.context.getImageData(
+        0,
+        0,
+        this.canvasWidth,
+        this.canvasHeight
+      );
+      let particlesUsed = 0;
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
+      for (let y = 0; y &lt; this.canvasHeight; y += this.particleGap) {
+        for (let x = 0; x &lt; this.canvasWidth; x += this.particleGap) {
+          const index = (x + y * pixles.width) * 4;
+          const alpha = pixles.data[index + 3];
+          if (alpha > 0) {
+            particlesUsed++;
+            const red = pixles.data[index + 0];
+            const green = pixles.data[index + 1];
+            const blue = pixles.data[index + 2];
+            const radius = Math.random() * 2 + 1.2;
+            const color = `rgb(${red}, ${green}, ${blue})`;
+            if (this.particles[particlesUsed] != undefined) {
+              this.particles[particlesUsed].color = color;
+              this.particles[particlesUsed].originX = x;
+              this.particles[particlesUsed].originY = y;
+            } else {
+              this.particles.push(
+                new Particle(this, x, y, radius, color, 0.007, 0.5)
+              );
+            }
+          }
+        }
+      }
+
+      for (let i = particlesUsed; i &lt; this.particles.length; i++) {
+        this.particles[i].color = "rgba(0, 0, 0, 0)";
+      }
+    }
+
+    render() {
+      this.particles.forEach((particle) => {
+        particle.update();
+        particle.draw();
+      });
+    }
+  }
+
+  const effect = new Effect(ctx, canvas.width, canvas.height);
+  effect.renderText();
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    effect.render();
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+  setTimeout(() => {
+    effect.morphText(
+      "morphed text",
+      100,
+      window.innerWidth / 2 - 200,
+      window.innerHeight / 2
+    );
+  }, 2000);
+
+    </main>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>
