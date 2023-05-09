@@ -4,7 +4,7 @@ const techRef = document.querySelector("#technologies");
 const projectsRef = document.querySelector("#projects");
 const aboutmeRef = document.querySelector("#about-me");
 const contactRef = document.querySelector("#contact");
-const blogRef = document.querySelector("#blog");
+// const blogRef = document.querySelector("#blog");
 const parent = document.querySelector("#parent");
 let whichSlide = 0;
 
@@ -126,12 +126,6 @@ class NavItem {
       }
     } else if (this.domElement.innerText == "projects") {
       if (checkVisible(projectsRef)) {
-        this.domElement.style.fontSize = "40px";
-      } else {
-        this.domElement.style.fontSize = "30px";
-      }
-    } else if (this.domElement.innerText == "blog") {
-      if (checkVisible(blogRef)) {
         this.domElement.style.fontSize = "40px";
       } else {
         this.domElement.style.fontSize = "30px";

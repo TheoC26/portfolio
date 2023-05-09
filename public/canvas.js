@@ -5,7 +5,7 @@ window.addEventListener("load", function () {
   const techRef = document.querySelector("#technologies");
   const aboutmeRef = document.querySelector("#about-me");
   const contactRef = document.querySelector("#contact");
-  const blogRef = document.querySelector("#blog");
+  // const blogRef = document.querySelector("#blog");
   const aboutMeHover = document.querySelectorAll(".aboutme-hover");
   const ctx = canvas.getContext("2d", {
     willReadFrequently: true,
@@ -267,10 +267,11 @@ window.addEventListener("load", function () {
     } else if (checkVisible(contactRef) && whichSlide != 4) {
       whichSlide = 4;
       effect.morphText("contact", 96, leftPadding, topPadding);
-    } else if (checkVisible(blogRef) && whichSlide != 5) {
-      whichSlide = 5;
-      effect.morphText("blog", 96, leftPadding, topPadding);
-    }
+    } 
+    // else if (checkVisible(blogRef) && whichSlide != 5) {
+    //   whichSlide = 5;
+    //   effect.morphText("blog", 96, leftPadding, topPadding);
+    // }
 
     requestAnimationFrame(animate);
   }
