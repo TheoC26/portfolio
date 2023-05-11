@@ -15,28 +15,28 @@
   </head>
   <body>
     <header
-      class="w-full px-12 py-3 top-0 bg-white sticky flex justify-between items-center border-b-2"
+      class="w-full px-6 md:px-12 py-3 top-0 bg-white sticky flex justify-between items-center border-b-2"
     >
-      <div class="flex gap-12">
-        <a href="../" class="text-6xl self-center">tc</a>
-        <a href="../#about-me" class="ml-10 text-2xl self-center"
+      <div class="flex gap-6 md:gap-12">
+        <a href="../" class="text-5xl md:text-6xl self-center">tc</a>
+        <a href="../#about-me" class="ml-0 sm:ml-3 md:ml-10 text-xl md:text-2xl self-center"
           >about me</a
         >
-        <a href="../#contact" class="text-2xl self-center">contact</a>
+        <a href="../#contact" class="text-xl md:text-2xl self-center">contact</a>
       </div>
-      <a href="./" class="text-2xl">all blogs</a>
+      <a href="./" class="text-xl md:text-2xl">all blogs</a>
     </header>
-    <div class="my-32 mx-auto max-w-2xl px-12" style="padding-inline: 1rem;">
-      <h1 class="text-5xl">
+    <div class="my-32 mx-auto max-w-2xl px-12">
+      <h1 class="text-2xl md:text-5xl">
         How to Create a Morphing Text Particle Effect with JavaScript and HTML5
         Canvas
       </h1>
       <h3 class="text-lg light-font text-gray-600 my-2">
-        by <span class="bold-font text-black">Theodore Chan</span> • June 7th,
+        by <span class="bold-font text-black">Theodore Chan</span> • May 7th,
         2023
       </h3>
     </div>
-    <main class="mx-auto max-w-4xl" style="padding-inline: .5rem;">
+    <main class="mx-auto max-w-4xl px-12">
       <p>
         Are you looking for a way to spice up your website's design? Perhaps you
         want to add an interactive and visually stunning effect to your landing
@@ -62,7 +62,7 @@
         screen.
       </p>
       <pre>
-        <code class="language-xml font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+        <code class="language-xml font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
   &lt;!DOCTYPE html&gt;
   &lt;html&gt;
     &lt;head&gt;
@@ -94,7 +94,7 @@
         canvas is always the correct size.
       </p>
       <pre>
-        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+        <code class="language-js font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d", {
     willReadFrequently: true,
@@ -120,7 +120,7 @@
         own properties.
       </p>
       <pre>
-        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+        <code class="language-js font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
 class Particle {
   constructor(
     effect,
@@ -192,7 +192,7 @@ class Particle {
         and storing those particles in an array.
       </p>
       <pre>
-        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+        <code class="language-js font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
   class Effect {
     constructor(context, canvasWidth, canvasHeight) {
       this.context = context;
@@ -306,7 +306,7 @@ class Particle {
         particles.
       </p>
       <pre>
-      <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+      <code class="language-js font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
   const effect = new Effect(ctx, canvas.width, canvas.height);
   effect.renderText();
       </code>
@@ -317,7 +317,7 @@ class Particle {
         that will continuously update and draw the particles.
       </p>
       <pre>
-        <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+        <code class="language-js font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     effect.render();
@@ -328,7 +328,7 @@ class Particle {
     </pre>
     <p>Finally, we can create a setTimout function that morphs the text after 2 seconds to try out the effect.</p>
     <pre>
-      <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+      <code class="language-js font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
   setTimeout(() => {
     effect.morphText(
       "morphed text",
@@ -342,7 +342,7 @@ class Particle {
     <h2>And Thats It!</h2>
     <p>You should now have a morphing text particle effect on your canvas. Here's the full code:</p>
     <pre>
-      <code class="language-js font-mono mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
+      <code class="language-js font-mono mx-2 md:mx-12 my-3 text-xs shadow-lg rounded-xl p-12">
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d", {
     willReadFrequently: true,

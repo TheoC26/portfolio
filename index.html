@@ -8,10 +8,15 @@
     <link rel="preload" href="/project_images/cryptoccicks.png" as="image">
     <link rel="preload" href="/project_images/annotater.png" as="image">
     <link rel="preload" href="https://raw.githubusercontent.com/c25tc/EvolutionSimulation/master/Screen%20Shot%202023-02-23%20at%2010.02.18%20AM.png" as="image">
+    <link rel="preload" href="/project_images/traffic.png" as="image">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>theodore chan</title>
   </head>
   <body>
+    <div class="z-20 w-full h-[100vh] pointer-events-none fixed top-0 left-0 bg-white grid place-content-center xl:hidden">
+      <div class="text-center text-2xl bold-font">Please view on a desktop browser for optimal experience.</div>
+      <div class="text-center">Mobile version coming soon 👀</div>
+    </div>
     <canvas
       id="canvas"
       class="bg-white fixed left-0 top-0 pointer-events-none -z-20"
@@ -87,7 +92,8 @@
         </div>
         <div class="flex-1">
           <div
-            class="bg-white bg-opacity-30 mx-auto backdrop-blur-sm w-[45vw] aspect-video p-4 relative rounded-lg"
+            id="project-bg"
+            class="bg-gradient-to-tr from-[#d2d2d2] to-[#c0c0c0] mx-auto backdrop-blur-sm w-[45vw] aspect-video p-4 relative rounded-xl"
           >
             <div
               class="bg-gray-300 h-full rounded-lg bg-cover"
@@ -127,14 +133,14 @@
         <h2 id="stuff" class="text-3xl">ui/ux</h2>
         <div class="flex gap-6 [&>*]:shadow-lg [&>*]:relative">
           <div
-            class="tech-card w-44 h-36 bg-white hover:bg-pink-400 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-around items-center transition-all duration-75"
+            class="tech-card w-40 h-36 bg-white hover:bg-pink-400 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-around items-center transition-all duration-75"
           >
             <img src="/logos/figma.png" alt="figma logo" class="w-14" />
             <h3 class="2xl mx-auto">figma</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card w-44 h-36 bg-white hover:bg-[#e49635] bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card w-40 h-36 bg-white hover:bg-[#e49635] bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img
               src="/logos/ai.png"
@@ -145,7 +151,7 @@
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-blue-400 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-blue-400 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/rive.png" alt="rive logo" class="w-24" />
             <h3 class="2xl mx-auto">rive</h3>
@@ -155,35 +161,35 @@
         <h2 class="text-3xl mt-3">frontend</h2>
         <div class="flex gap-6 [&>*]:shadow-lg">
           <div
-            class="tech-card bg-white hover:bg-red-400 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-1 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-red-400 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-1 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/html.png" alt="html logo" class="w-24" />
             <h3 class="2xl mx-auto">html</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-blue-400 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-blue-400 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/css.png" alt="rive logo" class="w-20" />
             <h3 class="2xl mx-auto">css</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-blue-300 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-2 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-blue-300 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-2 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/react.png" alt="react logo" class="w-24" />
             <h3 class="2xl mx-auto">react</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-gray-50 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-4 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-gray-50 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-4 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/next-js.svg" alt="next js logo" class="w-20" />
             <h3 class="2xl mx-auto">next</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-cyan-400 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-1 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-cyan-400 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-1 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/tailwind.png" alt="tailwind logo" class="w-24" />
             <h3 class="2xl mx-auto">tailwind</h3>
@@ -193,28 +199,28 @@
         <h2 class="text-3xl mt-3">languages</h2>
         <div class="flex gap-6 [&>*]:shadow-lg">
           <div
-            class="tech-card bg-white hover:bg-yellow-200 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-yellow-200 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-6 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/js.png" alt="javascript logo" class="w-20" />
             <h3 class="2xl mx-auto">javascript</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-yellow-300 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-yellow-300 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/python.png" alt="python logo" class="w-20" />
             <h3 class="2xl mx-auto">python</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-blue-300 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-blue-300 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/java.png" alt="java logo" class="w-16" />
             <h3 class="2xl mx-auto">java</h3>
             <span class="glare absolute left-0 top-0 w-full h-full rounded-2xl" style="background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, .3), transparent);"></span>
           </div>
           <div
-            class="tech-card bg-white hover:bg-teal-400 w-44 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center transition-all duration-75"
+            class="tech-card bg-white hover:bg-teal-400 w-40 h-36 bg-opacity-50 backdrop-blur-sm rounded-2xl p-4 pt-5 flex flex-col justify-between items-center transition-all duration-75"
           >
             <img src="/logos/swift.png" alt="swift logo" class="w-20" />
             <h3 class="2xl mx-auto">swift</h3>
