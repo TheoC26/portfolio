@@ -18,7 +18,7 @@ function checkVisible(elm) {
 }
 
 const checkMenu = () => {
-  console.log(checkVisible(topRef));
+  // console.log(checkVisible(topRef));
   if (checkVisible(topRef)) {
     menuButtonRef.style.opacity = "0";
   } else {

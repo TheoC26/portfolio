@@ -4,6 +4,11 @@ const techRef = document.querySelector("#technologies");
 const projectsRef = document.querySelector("#projects");
 const aboutmeRef = document.querySelector("#about-me");
 const contactRef = document.querySelector("#contact");
+const cursorRef = document.querySelector("#cursor");
+const buttonsRef = document.querySelectorAll("button");
+const ancorsRef = document.querySelectorAll("a");
+const inputsRef = document.querySelectorAll("input");
+const textAreaRefs = document.querySelectorAll("textarea");
 // const blogRef = document.querySelector("#blog");
 const parent = document.querySelector("#parent");
 let whichSlide = 0;
@@ -12,6 +17,45 @@ let mouse = {
   x: 0,
   y: 0,
 };
+
+// if hovering over a button, change the width of the cursor
+buttonsRef.forEach((button) => {
+  button.addEventListener("mouseenter", () => {
+    cursorRef.classList.add("hover");
+  });
+  button.addEventListener("mouseleave", () => {
+    cursorRef.classList.remove("hover");
+  });
+});
+
+// if hovering over a link, change the width of the cursor
+ancorsRef.forEach((ancor) => {
+  ancor.addEventListener("mouseenter", () => {
+    cursorRef.classList.add("hover");
+  });
+  ancor.addEventListener("mouseleave", () => {
+    cursorRef.classList.remove("hover");
+  });
+});
+
+// if hovering over an input, add input class
+inputsRef.forEach((input) => {
+  input.addEventListener("mouseenter", () => {
+    cursorRef.classList.add("input");
+  });
+  input.addEventListener("mouseleave", () => {
+    cursorRef.classList.remove("input");
+  });
+});
+textAreaRefs.forEach((textArea) => {
+  textArea.addEventListener("mouseenter", () => {
+    cursorRef.classList.add("input");
+  });
+  textArea.addEventListener("mouseleave", () => {
+    cursorRef.classList.remove("input");
+  });
+});
+
 
 document.addEventListener("mousemove", (e) => {
   mouse.x = e.clientX;
@@ -43,7 +87,7 @@ class NavItem {
     this.domElement = element;
     this.index = i;
     this.boundingClientRect = this.domElement.getBoundingClientRect();
-    this.triggerArea = 160;
+    this.triggerArea = 60;
     this.interpolationFactor = 0.2;
 
     this.lerpingData = {
@@ -109,7 +153,7 @@ class NavItem {
         -this.lerpingData.x.current / 2.5
       }deg) rotateX(${this.lerpingData.y.current / 2.5}deg)`;
     } else {
-      if (window.innerWidth > 1280) {
+      if (window.innerWidth > 10000) {
         this.domElement.style.transitionDuration = "500ms";
         this.domElement.style.left = `${80}%`;
         this.domElement.style.transform = `rotate3d(0, 1, -.1, ${0}deg)`;

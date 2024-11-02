@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="preload" href="/project_images/wya.png" as="image" />
     <link rel="preload" href="/project_images/cryptoccicks.png" as="image" />
-    <link rel="preload" href="/project_images/annotater.png" as="image" />
+    <link rel="preload" href="/project_images/notator.png" as="image" />
     <link
       rel="preload"
       href="https://raw.githubusercontent.com/c25tc/EvolutionSimulation/master/Screen%20Shot%202023-02-23%20at%2010.02.18%20AM.png"
@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>theodore chan</title>
   </head>
-  <body>
+  <body class="scroll-smooth cursor-none" id="home">
     <div
       class="z-20 w-full h-[100vh] pointer-events-none fixed top-0 left-0 bg-white grid place-content-center lg:hidden"
     >
@@ -25,6 +25,7 @@
       </div>
       <div class="text-center">Mobile version coming soon 👀</div>
     </div>
+    <div id="cursor"></div>
     <canvas
       id="canvas"
       class="bg-white fixed left-0 top-0 pointer-events-none -z-20"
@@ -32,11 +33,11 @@
     <!-- <img
       src="./background.png"
       alt="background"
-      class="-z-10 fixed left-0 top-0 opacity-70 pointer-events-none h-full w-full"
+      class="z-100 fixed left-0 top-0 opacity-70 pointer-events-none h-full w-full"
     /> -->
     <button
       id="menu-button"
-      class="fixed top-16 right-28 cursor-pointer z-40 xl:hidden opacity-0 w-14 h-9"
+      class="fixed top-16 right-28 cursor-none z-40 opacity-0 w-14 h-9"
     >
       <div
         id="menu1"
@@ -66,7 +67,7 @@
       </div>
     </div>
     <nav class="text-center text-4xl font-bold z-0">
-      <a
+      <!-- <a
         href="#projects"
         id="navigation"
         class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-pointer left-[13.5%] top-[20.1%] transition-all"
@@ -94,6 +95,36 @@
         href="./blog/"
         id="navigation"
         class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-pointer left-[75.7%] top-[70.5%] transition-all"
+        >blog</a
+      > -->
+      <a
+        href="#projects"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-none right-16 top-[2rem] transition-all"
+        >projects</a
+      >
+      <a
+        href="#technologies"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-none right-16 top-[4.5rem] transition-all"
+        >technologies</a
+      >
+      <a
+        href="#about-me"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-none right-16 top-[7rem] transition-all"
+        >about me</a
+      >
+      <a
+        href="#contact"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-none right-16 top-[9.5rem] transition-all"
+        >contact</a
+      >
+      <a
+        href="./blog/"
+        id="navigation"
+        class="navigation fixed p-3 rounded-lg hover:bg-black hover:text-white cursor-none right-16 top-[12rem] text-[30px] transition-all"
         >blog</a
       >
     </nav>
@@ -125,17 +156,17 @@
             class="projects-button transition-all p-3 rounded-lg duration-150 hover:bg-black hover:text-white"
             style="scale: 1.2"
           >
-            wya
+            this teenage life
           </button>
           <button
             class="projects-button transition-all p-3 rounded-lg duration-150 hover:bg-black hover:text-white"
           >
-            annotater
+            notator
           </button>
           <button
             class="projects-button whitespace-nowrap transition-all p-3 rounded-lg duration-150 hover:bg-black hover:text-white"
           >
-            crypto ccicks
+            mnemo
           </button>
           <button
             class="projects-button transition-all p-3 rounded-lg duration-150 hover:bg-black hover:text-white"
@@ -151,19 +182,19 @@
         <div class="flex-1">
           <div
             id="project-bg"
-            class="bg-gradient-to-tr from-[#d2d2d2] to-[#c0c0c0] mx-auto backdrop-blur-sm w-[55vw] xl:w-[45vw] aspect-video p-4 relative rounded-xl"
+            class="bg-gradient-to-tr from-[#ddaee4] to-[#c8addf] mx-auto backdrop-blur-sm w-[55vw] xl:w-[45vw] aspect-[16/9] p-4 relative rounded-xl"
           >
             <div
               class="bg-gray-300 h-full rounded-lg bg-cover"
               id="project-image"
-              style="background-image: url(/project_images/wya.png)"
+              style="background-image: url(/project_images/ttl.png)"
             ></div>
             <div class="absolute bottom-6 left-6" id="project-name">
-              WYA app
+              this teenage life
             </div>
             <div class="absolute bottom-6 right-6 flex gap-6">
               <a
-                href="https://wyaapp.com/"
+                href="https://thisteenagelife.org/"
                 target="_blank"
                 class="p-2 px-5 bg-white rounded-full text-black transition-all hover:bg-black hover:text-white"
                 id="project-live"
@@ -182,7 +213,7 @@
             class="mt-3 mx-auto w-[80%] text-2xl font-semibold"
             id="project-description"
           >
-            The website for WYA app
+            The website for This Teenage Life, a podcast by teenagers for teenagers.
           </div>
         </div>
       </section>
@@ -399,31 +430,35 @@
         class="h-screen snap-start px-24 pt-52 pr-[20%] xl:pr-[33%] text-3xl light-font font-extrabold"
         id="about-me"
       >
-        <p>
+        <!-- <p>
           I'm Theo. I aspire to use programming as an expressive medium to make
           things that make the world a bit better and more beautiful. I program
           all kinds of things — models that serve as biological simulations,
           AI-based annotation tools for primary source documents, and all kinds
-          of UI/UX effects. When I'm not at my computer, I play tennis, guitar,
-          and help others learn to make the digital tools that help them thrive.
+          of UI/UX effects. When I'm not at my computer, I play
+          <span class="aboutme-hover bold-font cursor-pointer">tennis</span>,
+          guitar, and help others learn to make the digital tools that help them
+          thrive.
         </p>
         <br />
         <p>
-          Let's collaborate :) Email me at <span class="bold-font cursor-pointer">theo.htf.chan@gmail.com</span> or send a message below 👇
-        </p>
-        <!-- <p>
+          Let's collaborate :) Email me at
+          <span class="bold-font cursor-pointer">theo.htf.chan@gmail.com</span>
+          or send a message below 👇
+        </p> -->
+        <p>
           Hey there, I'm
           <span class="aboutme-hover bold-font cursor-pointer"
             >Theodore Chan</span
           >
           - a UI/UX and front-end design fanatic based in the
           <span class="aboutme-hover bold-font cursor-pointer">Big Apple</span>.
-          When I'm not coding up a storm, you can find me shredding
+          When I'm not coding, you can find me skiing on the
           <span class="aboutme-hover bold-font cursor-pointer">the slopes</span>
-          on my skis or crushing it on the
+           or hitting on the
           <span class="aboutme-hover bold-font cursor-pointer"
             >tennis court</span
-          >. I've also been known to dabble on the drums and guitar - though I'm
+          >. I've also play the drums and guitar - though I'm
           still working on my
           <span class="aboutme-hover bold-font cursor-pointer"
             >rockstar status</span
@@ -432,12 +467,12 @@
         <br />
         <p>
           As a designer, I love finding creative solutions to real-world
-          problems. Whether it's crafting a seamless user experience or
-          perfecting the pixel-perfect details of a design, I thrive on the
-          challenge of making things look and work beautifully. And when I'm not
-          behind the screen, you can usually find me exploring the great
-          outdoors, soaking up inspiration from the world around me.
-        </p> -->
+          problems. I aspire to use programming as an expressive medium to make
+          things that make the world a bit better and more beautiful. I program
+          all kinds of things — models that serve as biological simulations,
+          AI-based annotation tools for primary source documents, and all kinds
+          of UI/UX effects.
+        </p>
       </section>
 
       <!-- CONTACT -->
@@ -446,21 +481,21 @@
         id="contact"
       >
         <div
-          class="bg-white bg-opacity-10 p-16 pt-8 pl-32 xl:rounded-l-none rounded-2xl backdrop-blur-sm shadow-xl"
+          class="bg-white bg-opacity-0 p-16 pt-8 pl-32 xl:rounded-l-none rounded-2xl backdrop-blur-md shadow-xl"
         >
-          <form class="flex flex-col" data-netlify="true" name="contact">
-            <label for="emailInput" class="text-3xl mb-1">email</label>
+          <form class="flex flex-col cursor-none" data-netlify="true" name="contact">
+            <label for="emailInput" class="text-3xl mb-1 cursor-none">email</label>
             <input
               name="email"
               type="email"
               id="emailInput"
-              class="rounded-2xl py-2 px-6 text-2xl border-2 shadow-sm"
+              class="rounded-2xl py-2 px-6 text-2xl border-2 shadow-sm cursor-none"
               required
             />
-            <label for="messageInput" class="text-3xl mt-4 mb-1">message</label>
+            <label for="messageInput" class="text-3xl mt-4 mb-1 cursor-none">message</label>
             <textarea
               name="message"
-              class="resize-none h-full flex-1 box-border text-2xl table-row rounded-2xl p-6 border-2 shadow-sm"
+              class="resize-none h-full flex-1 box-border text-2xl table-row rounded-2xl p-6 border-2 shadow-sm cursor-none"
               rows="6"
               cols="6"
               id="messageInput"

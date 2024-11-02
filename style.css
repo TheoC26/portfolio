@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: mosk;
   src: url(/fonts/Mosk_800.ttf);
@@ -12,21 +11,79 @@
   src: url(/fonts/Mosk_600.ttf);
 }
 
+/* root */
+:root {
+  --curosr-color: #AB51CB;
+
+}
+
 body {
   font-family: mosk;
   font-weight: 900;
+  /* cursor: none; */
 }
+
+#cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: var(--curosr-color);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  transition: width 0.1s ease, height 0.1s ease;
+  animation: cursor 2.5s;
+}
+
+#cursor.hover {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 2px solid var(--curosr-color);
+}
+
+#cursor.input {
+  width: 5px;
+  height: 25px;
+  border-radius: 3px;
+}
+
+@keyframes cursor {
+  0% {
+    background-color: transparent;
+  }
+  80% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: var(--curosr-color);
+  }
+}
+
+#home button {
+  cursor: none;
+}
+
+#home a {
+  cursor: none;
+}
+
 .typewriterAnimation {
   overflow-y: visible;
   overflow-x: hidden;
   white-space: nowrap;
   width: 0;
-  animation: typing 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards .5s;
+  animation: typing 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards 0.5s;
 }
 
 @keyframes typing {
-  0%, 100% { width: 0% }
-  80% { width: 100% }
+  0%,
+  100% {
+    width: 0%;
+  }
+  80% {
+    width: 100%;
+  }
 }
 
 .navigation {
@@ -34,7 +91,7 @@ body {
   overflow-x: hidden;
   white-space: nowrap;
   opacity: 0;
-  animation: appear .5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  animation: appear 0.5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
 }
 
 .navigation:nth-of-type(1) {
@@ -50,7 +107,7 @@ body {
   animation-delay: 2.9s;
 }
 .navigation:nth-of-type(5) {
-  animation-delay: 3.0s;
+  animation-delay: 3s;
 }
 .navigation:nth-of-type(6) {
   animation-delay: 3.2s;
@@ -66,11 +123,19 @@ body {
 }
 
 @keyframes appear {
-  0% { opacity: 0 }
-  100% { opacity: 100% }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
 }
 
 @keyframes meander {
-  0% { transform: translateX(0) }
-  100% { transform: translateX(100%) }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }

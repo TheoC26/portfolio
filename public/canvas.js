@@ -7,15 +7,29 @@ window.addEventListener("load", function () {
   const contactRef = document.querySelector("#contact");
   // const blogRef = document.querySelector("#blog");
   const aboutMeHover = document.querySelectorAll(".aboutme-hover");
+  const cursorRef = document.querySelector("#cursor");
   const ctx = canvas.getContext("2d", {
     willReadFrequently: true,
   });
   let whichSlide = 0;
   let isHovering = false;
+  let mouseDown = false;
   const leftPadding = 94;
-  const topPadding = 156;
+  const topPadding = 120;
+  const backgroundColor = "rgb(219, 219, 219)";
+  const effectColor = "#AB51CB";
+  const trailEffect=25;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  this.window.addEventListener("mousedown", () => {
+    console.log(true);
+    mouseDown = true;
+  });
+  this.window.addEventListener("mouseup", () => {
+    console.log(false);
+    mouseDown = false;
+  });
 
   function checkVisible(elm) {
     var rect = elm.getBoundingClientRect();
@@ -23,7 +37,10 @@ window.addEventListener("load", function () {
       document.documentElement.clientHeight,
       window.innerHeight
     );
-    return !(rect.bottom < window.innerHeight / 2 || rect.top - viewHeight >= -window.innerHeight / 2);
+    return !(
+      rect.bottom < window.innerHeight / 2 ||
+      rect.top - viewHeight >= -window.innerHeight / 2
+    );
   }
 
   class Particle {
@@ -55,6 +72,8 @@ window.addEventListener("load", function () {
       this.distance = 0;
       this.friction = Math.random() * frictionMultiplier;
       this.ease = Math.random() * easeMultiplier + 0.07;
+      this.trailEffect=trailEffect + Math.floor(Math.random()*10);
+      this.timer=this.trailEffect;
     }
     draw() {
       this.effect.context.fillStyle = this.color;
@@ -80,11 +99,30 @@ window.addEventListener("load", function () {
         this.vx = this.force * Math.cos(this.angle);
         this.vy = this.force * Math.sin(this.angle);
       }
+      if (this.type === "background") {
+        // if less than 100 pixels turn the color to the effect color
+        if (this.distance < 100) {
+          this.color = effectColor;
+          this.timer=this.trailEffect;
+        } else {
+          this.timer--;
+          if (this.timer<0) {
+            this.color = backgroundColor;
+            this.timer=-1;
+          }
+        }
+      }
 
-      this.x +=
-        (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
-      this.y +=
-        (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
+      if (!mouseDown) {
+        this.x +=
+          (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
+        this.y +=
+          (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
+      } else {
+        // make the particles move towards the cursor
+        this.x += ((this.originX - this.x) * this.ease) / 1;
+        this.y += ((this.originY - this.y) * this.ease) / 1;
+      }
     }
   }
 
@@ -96,7 +134,7 @@ window.addEventListener("load", function () {
       this.particles = [];
       this.particleGap = 4;
       this.mouse = {
-        radius: 20000,
+        radius: 10000,
         x: undefined,
         y: undefined,
       };
@@ -116,7 +154,7 @@ window.addEventListener("load", function () {
 
     renderText() {
       this.context.font = "600 96px Mosk";
-      this.context.fillText("theodore chan", 130, window.innerHeight - 130);
+      this.context.fillText("theodore chan", 90, window.innerHeight - 90);
       this.convertToParticles();
     }
 
@@ -149,7 +187,7 @@ window.addEventListener("load", function () {
         for (let x = 0; x < this.canvasWidth; x += this.particleGap + 2) {
           if (Math.random() < 0.13) {
             const radius = Math.random() * 2 + 0.2;
-            const color = `rgb(${219}, ${219}, ${219})`;
+            const color = backgroundColor;
             this.particles.push(
               new Particle("background", this, x, y, radius, color, 0.1, 0.05)
             );
@@ -250,9 +288,15 @@ window.addEventListener("load", function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     effect.render();
 
+    cursorX = lerp(cursorX, targetX, cursorLerp);
+    cursorY = lerp(cursorY, targetY, cursorLerp);
+
+    cursorRef.style.left = `${cursorX - cursorRadius}px`;
+    cursorRef.style.top = `${cursorY - cursorRadius}px`;
+
     if (checkVisible(topRef) && whichSlide != 0) {
       whichSlide = 0;
-      effect.morphText("theodore chan", 96, 130, window.innerHeight - 130);
+      effect.morphText("theodore chan", 96, 94, window.innerHeight - 130);
     } else if (checkVisible(projectsRef) && whichSlide != 1) {
       whichSlide = 1;
       effect.morphText("projects", 96, leftPadding, topPadding);
@@ -263,11 +307,10 @@ window.addEventListener("load", function () {
       whichSlide = 3;
       // check hover over different peices of text
       effect.morphText("about me", 96, leftPadding, topPadding);
-
     } else if (checkVisible(contactRef) && whichSlide != 4) {
       whichSlide = 4;
       effect.morphText("contact", 96, leftPadding, topPadding);
-    } 
+    }
     // else if (checkVisible(blogRef) && whichSlide != 5) {
     //   whichSlide = 5;
     //   effect.morphText("blog", 96, leftPadding, topPadding);
@@ -278,27 +321,52 @@ window.addEventListener("load", function () {
   // delay starting the animation for 1 second
   setTimeout(animate, 2000);
 
-
   aboutMeHover.forEach((element) => {
     element.addEventListener("mouseover", (e) => {
       if (!isHovering) {
         // switch statement for each element
-        if (e.target.innerHTML === "Big Apple") effect.morphImage("aboutme/nyc.png", leftPadding, 15, 273, 178);
-        if (e.target.innerHTML === "the slopes") effect.morphImage("aboutme/skier.png", leftPadding - 20, 35, 278, 181);
-        if (e.target.innerHTML === "tennis court") effect.morphImage("aboutme/tennis.png", leftPadding - 30, 10, 200, 200);
-        if (e.target.innerHTML === "rockstar status") effect.morphImage("aboutme/band.png", leftPadding - 20, 20, 350, 184);
+        if (e.target.innerHTML === "Big Apple")
+          effect.morphImage("aboutme/nyc.png", leftPadding, 15, 273, 178);
+        if (e.target.innerHTML === "the slopes")
+          effect.morphImage(
+            "aboutme/skier.png",
+            leftPadding - 20,
+            35,
+            278,
+            181
+          );
+        if (e.target.innerHTML === "tennis court")
+          effect.morphImage(
+            "aboutme/tennis.png",
+            leftPadding - 30,
+            10,
+            200,
+            200
+          );
+        if (e.target.innerHTML === "rockstar status")
+          effect.morphImage("aboutme/band.png", leftPadding - 20, 20, 350, 184);
 
-        
         isHovering = true;
       }
-      
-
     });
     element.addEventListener("mouseout", () => {
       isHovering = false;
       effect.morphText("about me", 96, leftPadding, topPadding);
     });
-  })
+  });
+
+let cursorX = 0;
+let cursorY = 0;
+let targetX = 0;
+let targetY = 0;
+let cursorLerp = .3;
+let cursorRadius = 4;
+
+window.addEventListener("mousemove", (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+});
+
 
   window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
